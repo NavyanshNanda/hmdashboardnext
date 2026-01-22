@@ -37,11 +37,11 @@ export function QuickStats() {
     <div className="bg-white rounded-xl shadow-sm p-6">
       <h3 className="text-xl font-semibold text-gray-900 mb-6">📌 Quick Stats</h3>
       
-      <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-4">
         {stats.map((stat, index) => (
           <div key={index} className={`${stat.bgColor} rounded-lg p-4`}>
-            <p className={`text-sm font-medium ${stat.labelColor}`}>{stat.label}</p>
-            <p className={`text-3xl font-bold ${stat.textColor} mt-1`}>{stat.value}</p>
+            <p className={`text-sm font-medium ${stat.labelColor} mb-1`}>{stat.label}</p>
+            <p className={`text-2xl font-bold ${stat.textColor}`}>{stat.value}</p>
           </div>
         ))}
       </div>

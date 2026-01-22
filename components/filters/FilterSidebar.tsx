@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import { DateRangeFilter } from './DateRangeFilter'
+import { DatePresets } from './DatePresets'
 import { CheckboxFilter } from './CheckboxFilter'
 import { NameSearchFilter } from './NameSearchFilter'
 import { useFilters, useCascadingFilters, useFilterActions } from '@/hooks'
@@ -33,8 +34,9 @@ export function FilterSidebar() {
 
       {/* Filters */}
       <div className="flex-1 overflow-y-auto">
-        {/* Date Range */}
-        <div className="border-b border-gray-200">
+        {/* Date Range with Presets */}
+        <div className="border-b border-gray-200 p-4 space-y-4">
+          <DatePresets />
           <DateRangeFilter
             startDate={filters.dateRange?.[0] || null}
             endDate={filters.dateRange?.[1] || null}
