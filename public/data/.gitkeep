@@ -1,0 +1,6 @@
+# CSV Data Files
+
+Place your CSV file here:
+- `TA Tracker - HM Sheet.csv`
+
+This directory is served statically by Next.js.
