@@ -1,6 +1,33 @@
 # CSV Data Files
 
-Place your CSV file here:
-- `TA Tracker - HM Sheet.csv`
+## Required File
 
-This directory is served statically by Next.js.
+Place your CSV file in this directory with the exact name:
+`TA Tracker - HM Sheet.csv`
+
+## CSV Format Requirements
+
+The CSV should have the following columns (matching the original Streamlit dashboard):
+- Sourcing Date
+- HM Details
+- Skill
+- Location of posting
+- Recruiter Name
+- Candidate Name
+- Status
+- Status of R1
+- Status of R2
+- Status of R3
+- Screening check status
+- TTF (60 days)
+- TTH (30 days)
+
+## Note
+
+- The first row should be metadata (it will be skipped during processing)
+- The second row should contain the column headers
+- This directory is served statically by Next.js
+
+## Testing
+
+Once you add the CSV file, refresh the dashboard at http://localhost:3000 to see the data loaded and processed.
