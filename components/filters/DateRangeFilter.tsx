@@ -41,10 +41,10 @@ export function DateRangeFilter({
   }
 
   return (
-    <div className="space-y-3 p-4">
+    <div className="space-y-2">
       <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
         <Calendar className="h-4 w-4" />
-        <span>Date Range (Req Date)</span>
+        <span>Custom Date Range</span>
       </div>
 
       <div className="space-y-2">

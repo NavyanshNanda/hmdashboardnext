@@ -4,6 +4,7 @@ import * as React from 'react'
 import { FilterSidebar } from '@/components/filters/FilterSidebar'
 import { KPICards } from './KPICards'
 import { DashboardTabs } from './DashboardTabs'
+import { ExportButtons } from './ExportButtons'
 import { useDashboardData, useFilteredData } from '@/hooks'
 import { Loader2 } from 'lucide-react'
 
@@ -50,7 +51,8 @@ export function DashboardLayout() {
       <div className="flex-1 overflow-y-auto">
         <div className="p-8">
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-8 flex items-center justify-between">
+            <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">
               📊 Talent Acquisition Dashboard
             </h1>
@@ -62,6 +64,8 @@ export function DashboardLayout() {
                 Showing {filteredRecords} of {totalRecords} candidates
               </p>
             )}
+          </div>
+          <ExportButtons />
           </div>
 
           {/* KPI Cards */}
