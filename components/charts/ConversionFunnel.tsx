@@ -28,17 +28,11 @@ export function ConversionFunnel() {
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-semibold text-gray-900">📊 Conversion Funnel Breakdown</h3>
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-lg">
-          <div className="text-xs font-medium opacity-90">Conversion Rate</div>
-          <div className="text-2xl font-bold">{conversionRate}%</div>
-        </div>
-      </div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-6">📊 Interview to Screening Conversion</h3>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <ResponsiveContainer width="100%" height={250}>
+      <div className="grid grid-cols-5 gap-6">
+        <div className="col-span-3">
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart
               data={chartData}
               layout="vertical"
@@ -60,7 +54,11 @@ export function ConversionFunnel() {
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                 }}
               />
-              <Bar dataKey="count" radius={[0, 8, 8, 0]}>
+              <Bar 
+                dataKey="count" 
+                radius={[0, 8, 8, 0]}
+                label={{ position: 'right', fill: '#374151', fontWeight: 600 }}
+              >
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
@@ -69,16 +67,31 @@ export function ConversionFunnel() {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-gray-50 rounded-lg p-4 flex flex-col justify-center">
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">💡 About This KPI</h4>
-          <p className="text-xs text-gray-600 leading-relaxed mb-3">
-            This metric shows the percentage of candidates who successfully cleared all three interview rounds 
-            out of those who passed the initial screening stage.
-          </p>
-          <p className="text-xs text-gray-600 leading-relaxed">
-            <strong className="text-gray-700">Higher is better:</strong> A higher conversion rate indicates effective 
-            screening processes and quality candidate selection.
-          </p>
+        <div className="col-span-2 flex flex-col justify-center">
+          <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 shadow-lg">
+            <div className="text-sm font-medium opacity-90 mb-2">Conversion Rate</div>
+            <div className="text-5xl font-bold mb-6">{conversionRate}%</div>
+            
+            <div className="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
+              <div className="text-xs font-medium mb-3">Formula:</div>
+              <div className="flex items-center justify-center gap-2 text-sm">
+                <div className="bg-white/30 px-3 py-2 rounded font-semibold">
+                  {interviewsCleared}
+                </div>
+                <div className="text-lg">÷</div>
+                <div className="bg-white/30 px-3 py-2 rounded font-semibold">
+                  {screeningCleared}
+                </div>
+                <div className="text-lg">×</div>
+                <div className="bg-white/30 px-2 py-2 rounded font-semibold">
+                  100
+                </div>
+              </div>
+              <div className="text-xs mt-3 opacity-90">
+                (Interviews Cleared / Screening Cleared) × 100
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

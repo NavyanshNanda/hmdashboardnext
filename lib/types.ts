@@ -17,6 +17,11 @@ export interface CandidateRecord {
   'TTH (30 days)': string | number
   'Dashboard_Category': DashboardCategory
   'Reject_Round': RejectRound | null
+  'Offer date': string | Date
+  'Offer Acceptance Date': string | Date
+  'Joining Date': string | Date
+  'Source': string
+  'Sub Source': string
 }
 
 export type DashboardCategory = 
