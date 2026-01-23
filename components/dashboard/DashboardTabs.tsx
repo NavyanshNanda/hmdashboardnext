@@ -5,6 +5,8 @@ import { PipelineFunnel } from '@/components/charts/PipelineFunnel'
 import { StatusPieChart } from '@/components/charts/StatusPieChart'
 import { QuickStats } from '@/components/charts/QuickStats'
 import { ConversionFunnel } from '@/components/charts/ConversionFunnel'
+import { OfferConversionFunnel } from '@/components/charts/OfferConversionFunnel'
+import { SourceAnalysis } from '@/components/charts/SourceAnalysis'
 import { DataTable } from './DataTable'
 import { ExportButtons } from './ExportButtons'
 import { useFilteredData } from '@/hooks'
@@ -79,7 +81,11 @@ export function DashboardTabs() {
       </TabsContent>
 
       <TabsContent value="kpi" className="mt-6">
-        <ConversionFunnel />
+        <div className="space-y-6">
+          <ConversionFunnel />
+          <OfferConversionFunnel />
+          <SourceAnalysis />
+        </div>
       </TabsContent>
     </Tabs>
   )

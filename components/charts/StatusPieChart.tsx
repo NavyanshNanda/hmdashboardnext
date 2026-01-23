@@ -44,16 +44,16 @@ export function StatusPieChart() {
     <div className="bg-white rounded-xl shadow-sm p-6">
       <h3 className="text-xl font-semibold text-gray-900 mb-6">📊 Status Distribution</h3>
       
-      <div style={{ position: 'relative', width: '100%', height: 450 }}>
-        <ResponsiveContainer width="100%" height={450}>
+      <div style={{ position: 'relative', width: '100%', height: 350 }}>
+        <ResponsiveContainer width="100%" height={350}>
           <PieChart>
             <Pie
               data={pieData}
               cx="50%"
-              cy="45%"
+              cy="40%"
               labelLine={false}
-              outerRadius={130}
-              innerRadius={85}
+              outerRadius={110}
+              innerRadius={75}
               paddingAngle={0}
               fill="#8884d8"
               dataKey="value"
@@ -67,14 +67,14 @@ export function StatusPieChart() {
         </ResponsiveContainer>
         
         {/* Center label */}
-        <div style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', pointerEvents: 'none' }}>
           <div className="text-sm text-gray-500">Total Candidates</div>
           <div className="text-4xl font-bold text-gray-900">{total}</div>
         </div>
       </div>
       
       {/* Custom legend */}
-      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4">
+      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-2">
         {pieData.map((entry, index) => {
           const percentage = ((entry.value / total) * 100).toFixed(0)
           return (
