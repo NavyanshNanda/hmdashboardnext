@@ -23,7 +23,28 @@ function parseDate(dateStr: unknown): Date | null {
   const str = String(dateStr).trim()
   if (str === '') return null
 
-  // Try parsing as ISO date first
+  // Try parsing DD-MMM-YY format first (e.g., "01-Dec-25", "1-Dec-25")
+  const ddMmmYyMatch = str.match(/^(\d{1,2})-(\w{3})-(\d{2})$/i);
+  if (ddMmmYyMatch) {
+    const day = parseInt(ddMmmYyMatch[1]);
+    const monthStr = ddMmmYyMatch[2];
+    const year = 2000 + parseInt(ddMmmYyMatch[3]); // Convert 25 to 2025
+    
+    const monthMap: { [key: string]: number } = {
+      'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+      'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
+    };
+    
+    const month = monthMap[monthStr.toLowerCase()];
+    if (month !== undefined) {
+      const date = new Date(year, month, day);
+      if (isValid(date)) {
+        return date;
+      }
+    }
+  }
+
+  // Try parsing as ISO date
   const isoDate = new Date(str)
   if (isValid(isoDate)) {
     return isoDate
@@ -104,8 +125,10 @@ export function cleanAndProcessData(rawData: any[]): CandidateRecord[] {
     // Parse dates
     const reqDate = parseDate(row['Req Date'])
     const sourcingDate = parseDate(row['Sourcing Date'])
+    const screeningDate = parseDate(row['Screening Date'])
     cleanedRow['Req Date'] = reqDate || new Date()
     cleanedRow['Sourcing Date'] = sourcingDate || new Date()
+    cleanedRow['Screening Date'] = screeningDate || '' // Don't set default if missing
 
     // Categorize status
     const [category, rejectRound] = categorizeStatus({

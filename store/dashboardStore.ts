@@ -33,6 +33,11 @@ interface DashboardState {
   setLocationFilter: (locations: string[]) => void
   setRecruiterFilter: (recruiters: string[]) => void
   setNameSearch: (search: string) => void
+  setCategoryFilter: (category: FilterState['categoryFilter']) => void
+  setActiveTab: (tab: string) => void
+  
+  // Current active tab
+  activeTab: string
   
   // Bulk filter actions
   toggleHM: (hm: string) => void
@@ -62,6 +67,7 @@ const initialFilterState: FilterState = {
   locationFilter: [],
   recruiterFilter: [],
   nameSearch: '',
+  categoryFilter: null,
 }
 
 export const useDashboardStore = create<DashboardState>()(
@@ -81,6 +87,7 @@ export const useDashboardStore = create<DashboardState>()(
       error: null,
       minDate: null,
       maxDate: null,
+      activeTab: 'overview',
 
       // Set raw data and initialize filters
       setRawData: (data, minDate, maxDate) => {
@@ -140,6 +147,17 @@ export const useDashboardStore = create<DashboardState>()(
           filters: { ...state.filters, nameSearch: search },
         }))
         get().updateFilteredData()
+      },
+
+      setCategoryFilter: (category) => {
+        set((state) => ({
+          filters: { ...state.filters, categoryFilter: category },
+        }))
+        get().updateFilteredData()
+      },
+
+      setActiveTab: (tab) => {
+        set({ activeTab: tab })
       },
 
       // Toggle individual items

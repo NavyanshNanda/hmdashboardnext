@@ -1,10 +1,12 @@
 'use client'
 
 import { useFilteredData } from '@/hooks'
+import { useDashboardStore } from '@/store/dashboardStore'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 
 export function PipelineFunnel() {
   const { summary, data } = useFilteredData()
+  const { setCategoryFilter, setActiveTab } = useDashboardStore()
 
   // Calculate funnel metrics
   const totalCandidates = summary.total
@@ -14,12 +16,19 @@ export function PipelineFunnel() {
   const joined = summary.joined
 
   const funnelData = [
-    { stage: 'Total Candidates', count: totalCandidates, color: '#10b981' },
-    { stage: 'After Screening', count: afterScreening, color: '#3b82f6' },
-    { stage: 'After Interviews', count: afterInterviews, color: '#f59e0b' },
-    { stage: 'Shortlisted', count: shortlisted, color: '#ef4444' },
-    { stage: 'Joined', count: joined, color: '#8b5cf6' },
+    { stage: 'Total Candidates', count: totalCandidates, color: '#10b981', category: 'all' as const },
+    { stage: 'Screening Cleared', count: afterScreening, color: '#3b82f6', category: 'screening-cleared' as const },
+    { stage: 'Interview Cleared', count: afterInterviews, color: '#f59e0b', category: 'interview-cleared' as const },
+    { stage: 'Offered Candidates', count: shortlisted, color: '#ef4444', category: 'offered' as const },
+    { stage: 'Joined', count: joined, color: '#8b5cf6', category: 'joined' as const },
   ]
+
+  const handleBarClick = (data: any) => {
+    if (data && data.category) {
+      setCategoryFilter(data.category)
+      setActiveTab('records')
+    }
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
@@ -51,6 +60,8 @@ export function PipelineFunnel() {
             dataKey="count" 
             radius={[0, 8, 8, 0]}
             label={{ position: 'right', fill: '#374151', fontWeight: 600 }}
+            onClick={handleBarClick}
+            cursor="pointer"
           >
             {funnelData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
