@@ -18,7 +18,7 @@ export function QuickStats() {
       labelColor: 'text-cyan-600',
     },
     {
-      label: 'Conversion Rate',
+      label: 'Sourcer to Joiner',
       value: `${conversionRate.toFixed(1)}%`,
       bgColor: 'bg-green-50',
       textColor: 'text-green-900',

@@ -64,6 +64,40 @@ export function applyFilters(
     )
   }
 
+  // Category filter (pipeline bar clicked)
+  if (filters.categoryFilter) {
+    switch (filters.categoryFilter) {
+      case 'all':
+        // Show all candidates (no additional filter)
+        break
+      case 'screening-cleared':
+        // All candidates EXCEPT screening rejects
+        filtered = filtered.filter((row) => 
+          row.Dashboard_Category !== 'Screening Reject'
+        )
+        break
+      case 'interview-cleared':
+        // Candidates who passed screening AND passed interviews
+        filtered = filtered.filter((row) => 
+          row.Dashboard_Category !== 'Screening Reject' && 
+          row.Dashboard_Category !== 'Rejected'
+        )
+        break
+      case 'offered':
+        // Offered candidates (Selected)
+        filtered = filtered.filter((row) => 
+          row.Dashboard_Category === 'Selected'
+        )
+        break
+      case 'joined':
+        // Joined candidates
+        filtered = filtered.filter((row) => 
+          row.Dashboard_Category === 'Joined'
+        )
+        break
+    }
+  }
+
   return filtered
 }
 

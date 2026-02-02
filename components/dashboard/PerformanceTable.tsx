@@ -5,15 +5,15 @@ import { CandidateRecord } from '@/lib/types'
 import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-interface DataTableProps {
+interface PerformanceTableProps {
   data: CandidateRecord[]
   pageSize?: number
 }
 
-type SortField = keyof CandidateRecord
+type SortField = 'HM Details' | 'Skill' | 'Status' | 'Recruiter Name'
 type SortDirection = 'asc' | 'desc'
 
-export function DataTable({ data, pageSize = 20 }: DataTableProps) {
+export function PerformanceTable({ data, pageSize = 10 }: PerformanceTableProps) {
   const [currentPage, setCurrentPage] = React.useState(1)
   const [sortField, setSortField] = React.useState<SortField | null>(null)
   const [sortDirection, setSortDirection] = React.useState<SortDirection>('asc')
@@ -72,9 +72,6 @@ export function DataTable({ data, pageSize = 20 }: DataTableProps) {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <SortButton field="Candidate Name" label="Candidate" />
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <SortButton field="HM Details" label="HM" />
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -86,20 +83,11 @@ export function DataTable({ data, pageSize = 20 }: DataTableProps) {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <SortButton field="Recruiter Name" label="Recruiter" />
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <SortButton field="TTH (30 days)" label="TTH" />
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <SortButton field="TTF (60 days)" label="TTF" />
-              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {paginatedData.map((candidate, idx) => (
               <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {candidate['Candidate Name']}
-                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {candidate['HM Details']}
                 </td>
@@ -119,12 +107,6 @@ export function DataTable({ data, pageSize = 20 }: DataTableProps) {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {candidate['Recruiter Name']}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {candidate['TTH (30 days)'] || '-'}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {candidate['TTF (60 days)'] || '-'}
                 </td>
               </tr>
             ))}

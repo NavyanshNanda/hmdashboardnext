@@ -4,22 +4,27 @@ import { useFilteredData } from '@/hooks'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts'
 
 const COLORS = {
-  Joined: '#4f46e5',        // indigo 600
-  Selected: '#6366f1',      // indigo 500
-  Rejected: '#818cf8',      // indigo 400
-  'Screening Reject': '#a5b4fc', // indigo 300
-  Pending: '#c7d2fe',       // indigo 200
+  'Screening Cleared': '#3b82f6',    // blue (matches bar graph)
+  'Interview Cleared': '#f59e0b',    // orange (matches bar graph)
+  'Offered Candidates': '#ef4444',   // red (matches bar graph)
+  'Joined': '#8b5cf6',               // purple (matches bar graph)
 }
 
 export function StatusPieChart() {
   const { summary } = useFilteredData()
 
+  // Calculate same metrics as pipeline funnel
+  const totalCandidates = summary.total
+  const screeningCleared = totalCandidates - summary.screeningReject
+  const interviewCleared = screeningCleared - summary.rejected
+  const offeredCandidates = summary.selected
+  const joined = summary.joined
+
   const pieData = [
-    { name: 'Joined', value: summary.joined, color: COLORS.Joined },
-    { name: 'Selected', value: summary.selected, color: COLORS.Selected },
-    { name: 'Rejected', value: summary.rejected, color: COLORS.Rejected },
-    { name: 'Screening Reject', value: summary.screeningReject, color: COLORS['Screening Reject'] },
-    { name: 'Pending', value: summary.pending, color: COLORS.Pending },
+    { name: 'Screening Cleared', value: screeningCleared, color: COLORS['Screening Cleared'] },
+    { name: 'Interview Cleared', value: interviewCleared, color: COLORS['Interview Cleared'] },
+    { name: 'Offered Candidates', value: offeredCandidates, color: COLORS['Offered Candidates'] },
+    { name: 'Joined', value: joined, color: COLORS.Joined },
   ].filter(item => item.value > 0) // Only show categories with data
 
   const total = summary.total

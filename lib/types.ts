@@ -3,6 +3,7 @@
 export interface CandidateRecord {
   'Req Date': string | Date
   'Sourcing Date': string | Date
+  'Screening Date': string | Date
   'HM Details': string
   'Skill': string
   'Location of posting': string
@@ -60,6 +61,7 @@ export interface FilterState {
   locationFilter: string[]
   recruiterFilter: string[]
   nameSearch: string
+  categoryFilter: 'all' | 'screening-cleared' | 'interview-cleared' | 'offered' | 'joined' | null
 }
 
 export interface CascadingFilterOptions {
